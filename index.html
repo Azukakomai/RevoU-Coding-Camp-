@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A personal productivity dashboard combining time awareness, task management, and quick website access." />
+    <title>To-Do Life Dashboard</title>
+    <link rel="stylesheet" href="/src/styles/main.css" />
+    <link rel="stylesheet" href="/src/styles/theme.css" />
+    <link rel="stylesheet" href="/src/styles/responsive.css" />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <div id="dashboard" class="dashboard" data-theme="light" role="main" aria-label="Dashboard">
+      <!-- Header: Time & Greeting -->
+      <header class="header" role="banner">
+        <div id="timeDisplay" class="time-display" aria-live="polite" aria-atomic="true">
+          <!-- Time and date will be rendered here -->
+        </div>
+        <h1 id="greeting" class="greeting" aria-live="polite" aria-atomic="true">
+          <!-- Greeting text will be rendered here -->
+        </h1>
+      </header>
+
+      <!-- Focus Timer Section -->
+      <section class="timer-section" aria-labelledby="timerHeading">
+        <h2 id="timerHeading" class="sr-only">Focus Timer</h2>
+        <div id="timerDisplay" class="timer-display" aria-live="polite" aria-atomic="true" role="status" aria-label="Timer display">
+          25:00
+        </div>
+        <div class="timer-state-indicator" id="timerState" aria-live="polite" aria-atomic="true">
+          <!-- Timer state indicator (idle/running/paused) -->
+        </div>
+        <div class="timer-controls" role="group" aria-label="Timer controls">
+          <button id="btnStart" class="btn-timer btn-primary" aria-label="Start the timer">
+            Start
+          </button>
+          <button id="btnStop" class="btn-timer btn-secondary" aria-label="Pause the timer" disabled>
+            Stop
+          </button>
+          <button id="btnReset" class="btn-timer btn-secondary" aria-label="Reset timer to default duration">
+            Reset
+          </button>
+        </div>
+      </section>
+
+      <!-- To-Do List Section -->
+      <section class="todo-section" aria-labelledby="todoHeading">
+        <h2 id="todoHeading">Tasks</h2>
+        <div class="todo-controls" role="group" aria-label="Task management controls">
+          <div class="todo-input-group">
+            <label for="taskInput" class="label">Add a new task:</label>
+            <input
+              id="taskInput"
+              type="text"
+              class="input-field"
+              placeholder="Enter a new task..."
+              aria-label="Task title input"
+            />
+            <button id="btnAddTask" class="btn-primary" aria-label="Add new task">
+              Add Task
+            </button>
+          </div>
+          <div class="sort-group">
+            <label for="sortSelect" class="label">Sort by:</label>
+            <select id="sortSelect" class="sort-select" aria-label="Sort tasks by">
+              <option value="completion">By Completion Status</option>
+              <option value="date">By Date Created</option>
+              <option value="alphabetical">Alphabetically</option>
+            </select>
+          </div>
+        </div>
+        <ul id="taskList" class="task-list" aria-live="polite" aria-label="Task list">
+          <!-- Tasks will be rendered here -->
+        </ul>
+        <div id="noTasksPlaceholder" class="placeholder-message" role="status" aria-live="polite">
+          No tasks yet. Add one to get started!
+        </div>
+      </section>
+
+      <!-- Quick Links Section -->
+      <section class="quick-links-section" aria-labelledby="quickLinksHeading">
+        <h2 id="quickLinksHeading">Quick Links</h2>
+        <div class="quick-link-form" role="group" aria-label="Quick link management">
+          <div class="form-group">
+            <label for="linkNameInput" class="label">Link name:</label>
+            <input
+              id="linkNameInput"
+              type="text"
+              class="input-field"
+              placeholder="e.g., GitHub"
+              aria-label="Quick link name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="linkUrlInput" class="label">URL:</label>
+            <input
+              id="linkUrlInput"
+              type="url"
+              class="input-field"
+              placeholder="https://example.com"
+              aria-label="Quick link URL"
+            />
+          </div>
+          <button id="btnAddLink" class="btn-primary" aria-label="Add new quick link">
+            Add Link
+          </button>
+        </div>
+        <div id="linkContainer" class="link-container" aria-live="polite" aria-label="Quick links">
+          <!-- Quick links will be rendered here -->
+        </div>
+        <div id="noLinksPlaceholder" class="placeholder-message" role="status" aria-live="polite">
+          No quick links yet. Add one to get started!
+        </div>
+      </section>
+
+      <!-- Settings & Footer -->
+      <footer class="footer" role="contentinfo">
+        <div class="settings-group" role="group" aria-label="Dashboard settings">
+          <button id="btnTheme" class="btn-secondary" aria-label="Toggle between light and dark theme">
+            🌙 Toggle Theme
+          </button>
+          <button id="btnEditName" class="btn-secondary" aria-label="Edit your display name">
+            👤 Edit Name
+          </button>
+          <button id="btnCustomTimer" class="btn-secondary" aria-label="Set custom timer duration">
+            ⏱️ Timer Duration
+          </button>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Modal Dialog Templates (hidden, cloned for modals) -->
+    <template id="modalTemplate">
+      <div class="modal-overlay" role="presentation">
+        <div class="modal-dialog" role="alertdialog" aria-modal="true">
+          <div class="modal-header">
+            <h2 id="modalTitle" class="modal-title"></h2>
+            <button class="modal-close" aria-label="Close dialog">&times;</button>
+          </div>
+          <div class="modal-body" id="modalBody"></div>
+          <div class="modal-footer">
+            <button class="btn-secondary btn-cancel" aria-label="Cancel">Cancel</button>
+            <button class="btn-primary btn-confirm" aria-label="Confirm">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <!-- Notification Container for Toast Messages -->
+    <div id="notificationContainer" class="notification-container" role="status" aria-live="polite" aria-atomic="true">
+      <!-- Notification messages will be rendered here -->
+    </div>
+
+    <!-- Main Application Script -->
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
